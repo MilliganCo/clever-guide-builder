@@ -1,13 +1,47 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import React, { useState } from 'react';
+import { AppProvider, useApp } from '@/context/AppContext';
+import BottomTabBar, { TabId } from '@/components/layout/BottomTabBar';
+import Onboarding from '@/components/onboarding/Onboarding';
+import DailyDrop from '@/pages/DailyDrop';
+import Inventory from '@/pages/Inventory';
+import Spaces from '@/pages/Spaces';
+import Explore from '@/pages/Explore';
+import Profile from '@/pages/Profile';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
-const Index = () => {
+const AppContent: React.FC = () => {
+  const { user } = useApp();
+  const [activeTab, setActiveTab] = useState<TabId>('drop');
+
+  if (!user.onboardingComplete) {
+    return <Onboarding />;
+  }
+
+  const renderTab = () => {
+    switch (activeTab) {
+      case 'drop': return <DailyDrop />;
+      case 'inventory': return <Inventory />;
+      case 'spaces': return <Spaces />;
+      case 'explore': return <Explore />;
+      case 'profile': return <Profile />;
+    }
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen bg-background">
+      <ScrollArea className="h-[calc(100vh-4rem)]">
+        {renderTab()}
+      </ScrollArea>
+      <BottomTabBar activeTab={activeTab} onTabChange={setActiveTab} />
     </div>
+  );
+};
+
+const Index: React.FC = () => {
+  return (
+    <AppProvider>
+      <AppContent />
+    </AppProvider>
   );
 };
 
