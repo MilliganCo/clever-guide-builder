@@ -1,5 +1,7 @@
 # Daily Drop 3D Collection
 
+> Experimental React and Three.js interactive collection prototype with synthetic data. See [PUBLICATION.md](PUBLICATION.md) for verification and limits.
+
 Интерактивный mobile-first прототип коллекции 3D-объектов. Пользователь получает ежедневный объект, раскрывает его, добавляет в инвентарь и размещает в собственных пространствах.
 
 ## Возможности
